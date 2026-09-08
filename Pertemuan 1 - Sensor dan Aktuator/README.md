@@ -138,7 +138,7 @@ void loop() {
 
 ### Jawaban Praktikum
 1. Diagram Alur (Flowchart) Proses Akuisisi Data Sensor
-  <img width="300" alt="diagram1A" src="../Pertemuan 1 - Sensor dan Aktuator/Images/Flowchart 1_1.png">
+  ![alt text](<Images/Flowchart 1_1.png>)
 2. Fungsi isnan() (is Not a Number) digunakan untuk memeriksa apakah nilai variabel yang dihasilkan dari fungsi dht.readHumidity() atau dht.readTemperature() bernilai valid secara numerik atau tidak:  
   - Jika jalur komunikasi 1-Wire sensor terputus, kabel jumper longgar, timing sinyal tidak sesuai, atau sensor belum siap, pustaka DHT akan mengembalikan nilai float khusus berupa NaN.  
   - Fungsi isnan() mengembalikan logika boolean true jika nilai variabel tersebut adalah NaN, dan false jika bernilai angka normal.  
