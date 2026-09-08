@@ -225,22 +225,22 @@ void loop() {
 <div align="center">
 <table border="1" cellpadding="10" cellspacing="0" width="100%">
     <td>
-      <img width="200" alt="dokum1" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_1_1.jpg"><br>
+      <img width="400" alt="dokum1" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_1_1.jpg"><br>
     </td>
     <td>
-      <img width="200" alt="dokum2" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_1_2.jpg"><br>
+      <img width="400" alt="dokum2" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_1_2.jpg"><br>
     </td>
     <td>
-      <img width="200" alt="dokum3" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_1_3.jpg"><br>
+      <img width="400" alt="dokum3" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_1_3.jpg"><br>
     </td>
     <td>
-      <img width="200" alt="dokum4" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_1_4.jpg"><br>
+      <img width="400" alt="dokum4" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_1_4.jpg"><br>
     </td>
     <td>
-      <img width="200" alt="dokum5" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_1_5.jpeg"><br>
+      <img width="400" alt="dokum5" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_1_5.jpeg"><br>
     </td>
     <td>
-      <img width="200" alt="dokum6" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_1_6.jpeg"><br>
+      <img width="400" alt="dokum6" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_1_6.jpeg"><br>
     </td>
   </tr>
 </table>
@@ -428,10 +428,10 @@ void loop() {
 <div align="center">
 <table border="1" cellpadding="10" cellspacing="0" width="100%">
     <td>
-      <img width="200" alt="dokum7" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_2_1.jpg"><br>
+      <img width="400" alt="dokum7" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_2_1.jpg"><br>
     </td>
     <td>
-      <img width="200" alt="dokum8" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_2_2.jpeg"><br>
+      <img width="400" alt="dokum8" src="../Pertemuan 1 - Sensor dan Aktuator/Images/M1_2_2.jpeg"><br>
     </td>
   </tr>
 </table>
