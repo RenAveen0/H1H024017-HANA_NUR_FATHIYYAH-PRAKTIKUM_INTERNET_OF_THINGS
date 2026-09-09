@@ -143,13 +143,13 @@ void loop() {
 </div>
 
 2. Fungsi isnan() (is Not a Number) digunakan untuk memeriksa apakah nilai variabel yang dihasilkan dari fungsi dht.readHumidity() atau dht.readTemperature() bernilai valid secara numerik atau tidak:  
-  - Jika jalur komunikasi 1-Wire sensor terputus, kabel jumper longgar, timing sinyal tidak sesuai, atau sensor belum siap, pustaka DHT akan mengembalikan nilai float khusus berupa NaN.  
-  - Fungsi isnan() mengembalikan logika boolean true jika nilai variabel tersebut adalah NaN, dan false jika bernilai angka normal.  
-  - Perintah ini berfungsi sebagai mekanisme error handling agar program tidak mengolah atau menampilkan data sampah/rusak ke Serial Monitor.
+    - Jika jalur komunikasi 1-Wire sensor terputus, kabel jumper longgar, timing sinyal tidak sesuai, atau sensor belum siap, pustaka DHT akan mengembalikan nilai float khusus berupa NaN.  
+    - Fungsi isnan() mengembalikan logika boolean true jika nilai variabel tersebut adalah NaN, dan false jika bernilai angka normal.  
+    - Perintah ini berfungsi sebagai mekanisme error handling agar program tidak mengolah atau menampilkan data sampah/rusak ke Serial Monitor.
 3. Jeda minimal 2 detik (2000 ms) diperlukan karena batasan karakteristik fisik dan perangkat keras sensor keluarga DHT:  
-  - Sampling Rate Terbatas: Sensor DHT11 memiliki frekuensi sampling maksimal 1 Hz (1 kali per detik) dan DHT22 sebesar 0.5 Hz (1 kali per 2 detik).  
-  - Stabilisasi Elemen Pengukur: Komponen pengukur kelembaban internal berupa polimer kapasitif serta termistor suhu membutuhkan waktu pemulihan (recovery time) dan stabilisasi termal agar pembacaan berikutnya akurat.
-  - Mencegah Data Korup / Cached: Jika mikrokontroler meminta data lebih cepat dari rentang refresh rate sensor, sensor akan mengembalikan pembacaan lama (cached data), data korup, atau gagal merespons sinyal start sehingga memicu galat NaN.
+    - Sampling Rate Terbatas: Sensor DHT11 memiliki frekuensi sampling maksimal 1 Hz (1 kali per detik) dan DHT22 sebesar 0.5 Hz (1 kali per 2 detik).  
+    - Stabilisasi Elemen Pengukur: Komponen pengukur kelembaban internal berupa polimer kapasitif serta termistor suhu membutuhkan waktu pemulihan (recovery time) dan stabilisasi termal agar pembacaan berikutnya akurat.
+    - Mencegah Data Korup / Cached: Jika mikrokontroler meminta data lebih cepat dari rentang refresh rate sensor, sensor akan mengembalikan pembacaan lama (cached data), data korup, atau gagal merespons sinyal start sehingga memicu galat NaN.
 4. Modifikasi Program
 ```cpp
 #include <DHT.h>
@@ -322,23 +322,23 @@ void loop() {
 5. DHT dht(DHTPIN, DHTTYPE); : Menginisialisasi objek sensor bernama dht.
 6. const float suhuThreshold = 30.0; : Mendeklarasikan konstanta ambang batas (threshold) suhu sebesar 30.0 °C sebagai acuan pengaktifan aktuator.
 7. void setup() { ... } : Konfigurasi awal perangkat keras :
-  - Serial.begin(115200); : Membuka jalur komunikasi serial ke komputer pada kecepatan 115200 bps.
-  - dht.begin(); : Mengaktifkan dan memulai komunikasi modul sensor DHT.
-  - pinMode(RELAYPIN, OUTPUT); : Mengonfigurasi pin GPIO 26 sebagai keluaran (OUTPUT) digital.
-  - digitalWrite(RELAYPIN, LOW); : Menuliskan logika tegangan rendah (LOW / 0V) ke pin relay untuk memastikan aktuator dalam kondisi mati (OFF) di awal program.
+    - Serial.begin(115200); : Membuka jalur komunikasi serial ke komputer pada kecepatan 115200 bps.
+    - dht.begin(); : Mengaktifkan dan memulai komunikasi modul sensor DHT.
+    - pinMode(RELAYPIN, OUTPUT); : Mengonfigurasi pin GPIO 26 sebagai keluaran (OUTPUT) digital.
+    - digitalWrite(RELAYPIN, LOW); : Menuliskan logika tegangan rendah (LOW / 0V) ke pin relay untuk memastikan aktuator dalam kondisi mati (OFF) di awal program.
 8. void loop() { ... } : Siklus pemrosesan utama :
-  - float suhu = dht.readTemperature(); : Membaca nilai suhu lingkungan dalam derajat Celsius dari sensor.
-  - if (isnan(suhu)) : Mengecek apakah data pembacaan valid atau menghasilkan galat (Not a Number).
-  - Serial.println("Gagal membaca data sensor!"); : Memberikan pesan peringatan ke Serial Monitor jika pembacaan gagal.
-  - else { ... } : Logika kendali dieksekusi jika data suhu valid:
-  - Serial.print("Suhu: "); ... : Menampilkan nilai suhu aktual ke Serial Monitor.
-  - if (suhu > suhuThreshold) : Memeriksa apakah suhu lingkungan melebihi nilai batas (30.0 °C).
-  - digitalWrite(RELAYPIN, HIGH); : Mengirimkan sinyal logika HIGH (3.3V) ke GPIO 26 untuk mengaktifkan saklar relay / menyalakan LED.
-  - Serial.println("Aktuator: ON"); : Mengirim teks informasi status ON ke Serial Monitor.
-  - else { ... } : Dijalankan jika suhu berada di bawah atau sama dengan 30.0 °C.
-  - digitalWrite(RELAYPIN, LOW); : Mengirim sinyal LOW (0V) ke GPIO 26 untuk memutus rangkaian relay / mematikan LED.
-  - Serial.println("Aktuator: OFF"); : Mengirim teks informasi status OFF ke Serial Monitor.
-  - delay(2000); : Jeda waktu 2 detik sebelum siklus pembacaan berikutnya.
+    - float suhu = dht.readTemperature(); : Membaca nilai suhu lingkungan dalam derajat Celsius dari sensor.
+    - if (isnan(suhu)) : Mengecek apakah data pembacaan valid atau menghasilkan galat (Not a Number).
+    - Serial.println("Gagal membaca data sensor!"); : Memberikan pesan peringatan ke Serial Monitor jika pembacaan gagal.
+    - else { ... } : Logika kendali dieksekusi jika data suhu valid:
+    - Serial.print("Suhu: "); ... : Menampilkan nilai suhu aktual ke Serial Monitor.
+    - if (suhu > suhuThreshold) : Memeriksa apakah suhu lingkungan melebihi nilai batas (30.0 °C).
+    - digitalWrite(RELAYPIN, HIGH); : Mengirimkan sinyal logika HIGH (3.3V) ke GPIO 26 untuk mengaktifkan saklar relay / menyalakan LED.
+    - Serial.println("Aktuator: ON"); : Mengirim teks informasi status ON ke Serial Monitor.
+    - else { ... } : Dijalankan jika suhu berada di bawah atau sama dengan 30.0 °C.
+    - digitalWrite(RELAYPIN, LOW); : Mengirim sinyal LOW (0V) ke GPIO 26 untuk memutus rangkaian relay / mematikan LED.
+    - Serial.println("Aktuator: OFF"); : Mengirim teks informasi status OFF ke Serial Monitor.
+    - delay(2000); : Jeda waktu 2 detik sebelum siklus pembacaan berikutnya.
 
 ### Library/Dependencies yang Dibutuhkan
 1. DHT sensor library.
@@ -354,12 +354,12 @@ void loop() {
 ### Jawaban Praktikum
 1. Nilai ambang batas (*threshold*) berfungsi sebagai titik referensi acuan bagi mikrokontroler untuk mengubah data kontinu hasil pembacaan sensor menjadi keputusan aksi biner (ON/OFF). Tanpa *threshold*, sistem IoT tidak memiliki parameter pembanding objektif untuk menentukan kapan kondisi fisik lingkungan dinilai memerlukan tindakan korektif (seperti menyalakan kipas/pompa melalui relay saat suhu melewati batas toleransi).
 2. Suhu ruangan normal lingkungan laboratorium atau wilayah tropis umumnya berada pada rentang 25 °C – 32 °C. Apabila `suhuThreshold` diturunkan menjadi 20.0 °C:
-  - Kondisi evaluasi logika `(suhu > suhuThreshold)` akan hampir selalu bernilai benar (*true*) setiap saat.
-  - Akibatnya, relay akan terus-menerus berada dalam status aktif (`ON`) tanpa pernah mati.
-  - Sistem kehilangan sensitivitas kendali dinamisnya dan berisiko memboroskan energi atau menyebabkan *overheating* pada beban listrik yang terhubung ke relay.
+    - Kondisi evaluasi logika `(suhu > suhuThreshold)` akan hampir selalu bernilai benar (*true*) setiap saat.
+    - Akibatnya, relay akan terus-menerus berada dalam status aktif (`ON`) tanpa pernah mati.
+    - Sistem kehilangan sensitivitas kendali dinamisnya dan berisiko memboroskan energi atau menyebabkan *overheating* pada beban listrik yang terhubung ke relay.
 3. Perbedaan Kendali Kondisi Tunggal vs Kendali Histerisis
-  - Kendali Kondisi Tunggal (*Single Threshold*): Hanya menggunakan 1 titik acuan batas suhu (misalnya tepat 30.0 °C)[cite: 1]. Kelemahannya, jika suhu lingkungan berfluktuasi tipis di sekitar titik kritis (misalnya naik-turun antara 29.9 °C dan 30.1 °C akibat derau/noise sensor), relay akan beralih menyala dan mati secara berulang-ulang dalam frekuensi cepat (*chattering*/*hunting*). Kondisi ini dapat merusak kontak mekanis saklar relay dalam jangka pendek.
-  - Kendali Histerisis (*Dual Threshold*): Memakai dua ambang batas yang menciptakan rentang toleransi (*deadband*), yaitu batas atas (*high threshold*) dan batas bawah (*low threshold*). Aktuator hanya berubah status menjadi `ON` saat suhu melampaui batas atas (30 °C), dan hanya mati (`OFF`) saat suhu turun melintasi batas bawah (28 °C). Selama suhu berada di antara rentang 28 °C – 30 °C, relay mempertahankan status terakhirnya sehingga sistem jauh lebih stabil dan perangkat lebih awet.
+    - Kendali Kondisi Tunggal (*Single Threshold*): Hanya menggunakan 1 titik acuan batas suhu (misalnya tepat 30.0 °C). Kelemahannya, jika suhu lingkungan berfluktuasi tipis di sekitar titik kritis (misalnya naik-turun antara 29.9 °C dan 30.1 °C akibat derau/noise sensor), relay akan beralih menyala dan mati secara berulang-ulang dalam frekuensi cepat (*chattering*/*hunting*). Kondisi ini dapat merusak kontak mekanis saklar relay dalam jangka pendek.
+    - Kendali Histerisis (*Dual Threshold*): Memakai dua ambang batas yang menciptakan rentang toleransi (*deadband*), yaitu batas atas (*high threshold*) dan batas bawah (*low threshold*). Aktuator hanya berubah status menjadi `ON` saat suhu melampaui batas atas (30 °C), dan hanya mati (`OFF`) saat suhu turun melintasi batas bawah (28 °C). Selama suhu berada di antara rentang 28 °C – 30 °C, relay mempertahankan status terakhirnya sehingga sistem jauh lebih stabil dan perangkat lebih awet.
 4. Modifikasi Program
 ```cpp
 #include <DHT.h>
