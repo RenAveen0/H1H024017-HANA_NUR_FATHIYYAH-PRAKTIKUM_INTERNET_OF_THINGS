@@ -407,10 +407,10 @@ void loop() {
 <div align="center">
 <table border="1" cellpadding="10" cellspacing="0" width="100%">
     <td>
-      <img width="200" alt="dokum1" src="Images/M2_1_1.jpg"><br>
+      <img width="400" alt="dokum1" src="Images/M2_1_1.jpg"><br>
     </td>
     <td>
-      <img width="200" alt="dokum2" src="Images/M2_2_1.png"><br>
+      <img width="400" alt="dokum2" src="Images/M2_2_1.png"><br>
     </td>
   </tr>
 </table>
