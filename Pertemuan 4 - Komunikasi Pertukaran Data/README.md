@@ -1,7 +1,7 @@
 # Pertemuan 4 - Komunikasi Pertukaran Data
 
 ## Tujuan dan Penjelasan Singkat
-Praktikum pada Pertemuan 4 ini berfokus pada implementasi komunikasi pertukaran data dua arah (bidirectional) pada sistem Internet of Things (IoT) menggunakan protokol MQTT:
+Praktikum pada Pertemuan 4 ini berfokus pada implementasi komunikasi pertukaran data dua arah (bidirectional) pada sistem IoT menggunakan protokol MQTT:
 1. Konsep Pertukaran Data Dua Arah: Memahami mekanisme pengiriman (Publish) data telemetri dan penerimaan (Subscribe) perintah secara simultan pada mikrokontroler.
 2. Deserialisasi Data JSON: Memahami mekanisme penerimaan data dan proses membedah (deserialization) teks berformat JSON menjadi variabel yang dapat diproses oleh mikrokontroler.
 3. Kendali Aktuator Real-Time: Mengimplementasikan penerimaan perintah kendali jarak jauh melalui pesan MQTT untuk mengontrol aktuator (LED) secara langsung.
