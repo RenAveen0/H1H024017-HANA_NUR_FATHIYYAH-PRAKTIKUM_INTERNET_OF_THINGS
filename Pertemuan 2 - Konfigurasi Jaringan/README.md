@@ -16,7 +16,7 @@ Praktikum pada Pertemuan 2 ini berfokus pada implementasi konfigurasi jaringan n
     <th>Breadboard</th>
     <th>Kabel Jumper</th>
     <th>LED</th>
-    <th>Kabel USB Type B</th>
+    <th>Kabel Micro USB</th>
     <th>Arduino IDE</th>
   </tr>
 

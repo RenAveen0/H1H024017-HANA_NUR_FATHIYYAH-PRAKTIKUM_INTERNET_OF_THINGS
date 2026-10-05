@@ -15,7 +15,7 @@ Praktikum pada Pertemuan 1 ini berfokus pada dua konsep fundamental dalam ekosis
     <th>Kabel Jumper</th>
     <th>Relay Modul</th>
     <th>Sensor DHT11</th>
-    <th>Kabel USB Type B</th>
+    <th>Kabel Micro USB</th>
     <th>Arduino IDE</th>
   </tr>
 
