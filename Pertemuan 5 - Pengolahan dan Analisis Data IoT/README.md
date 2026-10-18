@@ -1,4 +1,4 @@
-# Pertemuan 3 - Protokol Komunikasi
+# Pertemuan 5 - Pengolahan dan Analisis Data IoT
 
 ## Tujuan dan Penjelasan Singkat
 1. 
@@ -34,7 +34,46 @@
 </table>
 </div>
 
-## Percobaan 3A
+## Percobaan 5A
+### Gambaran Umum 
+
+### Skematik Percobaan
+```
+```
+
+### Kode Program
+```cpp
+```
+
+### Penjelasan Kode per Baris Fungsi
+1. 
+
+### Library/Dependencies yang Dibutuhkan
+1. 
+
+### Pertanyaan Praktikum
+1. 
+
+### Jawaban Praktikum
+1. 
+
+#### Penjelasan Baris Kode Modifikasi:
+- 
+
+### Dokumentasi
+<div align="center">
+<table border="1" cellpadding="10" cellspacing="0" width="100%">
+    <td>
+      <img width="200" alt="dokum1" src=""><br>
+    </td>
+    <td>
+      <img width="200" alt="dokum2" src=""><br>
+    </td>
+  </tr>
+</table>
+</div>
+
+## Percobaan 5B
 ### Gambaran Umum 
 
 ### Skematik Percobaan

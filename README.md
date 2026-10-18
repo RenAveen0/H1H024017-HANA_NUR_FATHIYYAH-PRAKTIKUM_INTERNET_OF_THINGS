@@ -9,3 +9,5 @@ Shift sekarang: A
 * Modul 1 : Sensor dan Aktuator
 * Modul 2 : Konfigurasi Jaringan
 * Modul 3 : Protokol Komunikasi
+* Modul 4 : Komunikasi dan Pertukaran Data
+* Modul 5 : Pengolahan dan Analisis Data IoT

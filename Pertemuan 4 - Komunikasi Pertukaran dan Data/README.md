@@ -1,4 +1,4 @@
-# Pertemuan 4 - Komunikasi Pertukaran Data
+# Pertemuan 4 - Komunikasi Pertukaran dan Data
 
 ## Tujuan dan Penjelasan Singkat
 Praktikum pada Pertemuan 4 ini berfokus pada implementasi komunikasi pertukaran data dua arah (bidirectional) pada sistem IoT menggunakan protokol MQTT:
