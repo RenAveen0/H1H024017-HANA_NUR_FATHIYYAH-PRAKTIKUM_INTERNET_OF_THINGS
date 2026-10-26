@@ -420,30 +420,97 @@ aris Kode Modifikasi:
 3. Metode z-score kurang optimal jika menghadapi data dengan tren naik atau turun yang tajam secara terus-menerus. Pergeseran nilai rata-rata keseluruhan dapat memicu anomali palsu (false positive) di awal tren atau menyebabkan lonjakan nyata di akhir tren gagal terdeteksi.
 4. Kode Modifikasi
 ```cpp
-# -- Tahap 3: analisis statistik, moving average, dan deteksi anomali (z-score)
-df = pd.DataFrame(data)
+import json
+import time
+import paho.mqtt.client as mqtt
+import pandas as pd
+import matplotlib.pyplot as plt
 
+BROKER = "broker.hivemq.com"
+PORT = 1883
+TOPIC = "unsoed/tk245004/kelompokAnda/data"  # Sesuaikan dengan topic ESP8266
+JUMLAH_SAMPEL = 20  # Jumlah data yang dikumpulkan
+
+data = []
+
+def on_connect(client, userdata, flags, reason_code, properties):
+    print("Terhubung ke broker, kode:", reason_code)
+    client.subscribe(TOPIC)
+
+def on_message(client, userdata, msg):
+    try:
+        payload = json.loads(msg.payload.decode())
+        suhu = float(payload["suhu"])
+    except (ValueError, KeyError):
+        print("Data tidak valid, diabaikan")
+        return
+    
+    data.append({"waktu": time.strftime("%Y-%m-%d %H:%M:%S"), "suhu": suhu})
+    print(f"[{len(data)}/{JUMLAH_SAMPEL}] suhu = {suhu}")
+    
+    if len(data) >= JUMLAH_SAMPEL:
+        client.disconnect()
+
+# -- Tahap 1: Akuisisi data dari MQTT
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+client.on_connect = on_connect
+client.on_message = on_message
+client.connect(BROKER, PORT)
+client.loop_forever()
+
+# -- Tahap 2: Simpan ke CSV
+df = pd.DataFrame(data)
+df.to_csv("data_suhu.csv", index=False)
+print("Data tersimpan di data_suhu.csv")
+
+# -- Tahap 3: Analisis Statistik, Moving Average, dan Deteksi Anomali (Z-Score)
 # Menerapkan filter Moving Average dengan jendela 5 data pada kolom suhu
 df["suhu_ma"] = df["suhu"].rolling(window=5).mean()
 
-# Mengisi nilai NaN di awal baris moving average dengan data suhu asli (opsional)
+# Mengisi nilai NaN (kosong) di awal baris moving average menggunakan data suhu asli
 df["suhu_ma"] = df["suhu_ma"].fillna(df["suhu"])
 
-# Hitung rata-rata dan std deviasi dari data yang sudah difilter moving average
+# Menghitung rata-rata dan standar deviasi dari data yang telah difilter moving average
 rata2 = df["suhu_ma"].mean()
 std = df["suhu_ma"].std()
 
 if std == 0:
-  df["zscore"] = 0.0
+    df["zscore"] = 0.0
 else:
-  df["zscore"] = (df["suhu_ma"] - rata2) / std
+    df["zscore"] = (df["suhu_ma"] - rata2) / std
 
+# Menentukan status anomali berdasarkan ambang batas |z| > 2
 df["anomali"] = df["zscore"].abs() > 2
 
 print(f"Rata-rata (MA): {rata2:.2f}")
 print(f"Std deviasi (MA): {std:.2f}")
+print(f"Minimum (MA)  : {df['suhu_ma'].min():.2f}")
+print(f"Maksimum (MA) : {df['suhu_ma'].max():.2f}")
 print(f"Jumlah anomali setelah Moving Average: {df['anomali'].sum()}")
+
+# -- Tahap 4: Visualisasi
+plt.figure(figsize=(10, 4))
+plt.plot(df.index, df["suhu_ma"], marker="o", label="Suhu (Moving Average)")
+anom = df[df["anomali"]]
+plt.scatter(anom.index, anom["suhu_ma"], color="red", s=100, label="Anomali", zorder=3)
+plt.axhline(rata2, color="gray", linestyle="--", label="Rata-rata")
+plt.xlabel("Urutan data")
+plt.ylabel("Suhu (°C)")
+plt.title("Data Suhu (Moving Average) dan Deteksi Anomali Z-score")
+plt.legend()
+plt.tight_layout()
+plt.savefig("grafik_suhu_ma.png")
+plt.show()
 ```
+
+#### Penjelasan Baris Kode Modifikasi: Moving Average Sebelum Z-Score
+1. `df["suhu_ma"] = df["suhu"].rolling(window=5).mean();` : Menggunakan fungsi `rolling(window=5)` dari pustaka Pandas untuk membentuk jendela geser sepanjang 5 sampel data, lalu menghitung rata-ratanya guna meredam derau (*noise*) acak pada data suhu mentah.
+2. `df["suhu_ma"] = df["suhu_ma"].fillna(df["suhu"]);` : Mengisi nilai kosong (`NaN`) pada 4 baris data pertama (karena belum memenuhi syarat jendela 5 sampel) dengan nilai suhu mentah aslinya agar program tidak mengalami galat pada perhitungan statistik selanjutnya.
+3. `rata2 = df["suhu_ma"].mean();` : Menghitung ulang nilai rata-rata keseluruhan berdasarkan kolom data yang sudah melalui proses perataan *moving average*.
+4. `std = df["suhu_ma"].std();` : Menghitung simpangan baku (standar deviasi) baru dari data yang telah difilter agar sebaran nilai lebih stabil.
+5. `df["zscore"] = (df["suhu_ma"] - rata2) / std;` : Menghitung nilai *z-score* berdasarkan kolom `suhu_ma` terhadap rata-rata dan simpangan baku yang baru.
+6. `df["anomali"] = df["zscore"].abs() > 2;` : Mengevaluasi ambang batas anomali dengan memeriksa apakah nilai mutlak *z-score* lebih besar dari 2.
+7. `print(f"Jumlah anomali setelah Moving Average: {df['anomali'].sum()}");` : Mencetak total data yang terdeteksi sebagai anomali setelah perataan filter ke konsol terminal.
 
 ### Dokumentasi
 <div align="center">
